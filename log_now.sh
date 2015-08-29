@@ -1,7 +1,7 @@
 #!/bin/bash
 ST_CLI='/usr/local/bin/speedtest-cli'
 USER=$(whoami)
-BBLOGGER_PATH="/Users/$USER/bblogger"
+BBLOGGER_PATH="/Users/$USER/bbspeedlogger"
 NOW=$(date +"%Y-%m-%d_%H-%M")
 TMP="$BBLOGGER_PATH/.temp"
 #YOUR_SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')
@@ -20,4 +20,4 @@ wget -O $BBLOGGER_PATH/$NOW.png "$URL"
 DLD=$(grep Download $TMP)
 ULD=$(grep Upload $TMP)
 
-terminal-notifier -message "$DLD & $ULD" -title "bblogger" -command -subtitle "Speed test complete"
+terminal-notifier -message "$DLD & $ULD" -title "bbspeedlogger" -command -subtitle "Speed test complete"
