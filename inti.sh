@@ -3,7 +3,7 @@ USER=$(whoami)
 BBLOGGER_PATH="/Users/$USER/bbspeedlogger"
 
 #add alias for bblogger in your zshrc
-printf 'alias lognow=/Users/$USER/bbspeedlogger/.log_now"' >> ~/.zshrc
+printf 'alias lognow='/Users/$USER/bbspeedlogger/.log_now'' >> ~/.zshrc
 
 #Install dependencies
 pip install speedtest-cli 
