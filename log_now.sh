@@ -5,7 +5,7 @@ BBLOGGER_PATH="/Users/$USER/bbspeedlogger"
 RESULTS="$BBLOGGER_PATH/results"
 NOW=$(date +"%Y-%m-%d_%H-%M")
 TMP="$BBLOGGER_PATH/.temp"
-#YOUR_SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')
+YOUR_SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')
 #iwgetid
 
 # check if bblogger folder exists or not
@@ -26,4 +26,4 @@ wget -O $RESULTS/$NOW.png "$URL"
 DLD=$(grep Download $TMP)
 ULD=$(grep Upload $TMP)
 
-terminal-notifier -message "$DLD & $ULD" -title "bbspeedlogger" -command -subtitle "Speed test complete"
+terminal-notifier -message "$DLD & $ULD" -title "bbspeedlogger" -subtitle "$YOUR_SSID" -open file://localhost/$RESULTS
