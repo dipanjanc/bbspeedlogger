@@ -17,5 +17,7 @@ $ST_CLI --share 1> $TMP
 URL=$(grep -io 'www.speedtest.net/result/.*[.png]' $TMP)
 wget -O $BBLOGGER_PATH/$NOW.png "$URL"
 
+DLD=$(grep Download $TMP)
+ULD=$(grep Upload $TMP)
 
-
+terminal-notifier -message "$DLD & $ULD" -title "bblogger" -command -subtitle "Speed test complete"
