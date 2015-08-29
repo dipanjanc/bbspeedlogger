@@ -26,3 +26,6 @@ or
 
 curl -Lo speedtest-cli https://raw.githubusercontent.com/sivel/speedtest-cli/master/speedtest_cli.py
 chmod +x speedtest-cli
+
+to create a shortcut add the following line to .bashrc/.zshrc
+alias lognow='sh ~/path_to_bblogger/log_now.sh >> ~/path_to_log_file'
