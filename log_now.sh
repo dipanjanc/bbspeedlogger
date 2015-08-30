@@ -19,11 +19,21 @@ if [ ! -d "$RESULTS" ]; then
   /bin/mkdir -p $RESULTS
 fi
 
+
+printf '\n\n===========START SPEEDTEST=============\n\n' > $TMP
+printf "$YOUR_SSID  -  $NOW" 1> $TMP
+printf "\n"
 $ST_CLI --share 1> $TMP
 URL=$(grep -io 'www.speedtest.net/result/.*[.png]' $TMP)
 wget -O $RESULTS/$NOW.png "$URL"
 
+
+printf '\n\n============END OF SPEEDTEST============\n\n' > $TMP
+
+#Preparing notification
 DLD=$(grep Download $TMP)
 ULD=$(grep Upload $TMP)
-
 terminal-notifier -message "$DLD & $ULD" -title "bbspeedlogger" -subtitle "$YOUR_SSID" -open file://localhost/$RESULTS
+
+#Appending speedtest log to logile
+cat $TMP >> .log
