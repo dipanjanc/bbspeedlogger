@@ -19,21 +19,30 @@ if [ ! -d "$RESULTS" ]; then
   /bin/mkdir -p $RESULTS
 fi
 
+#check connectivity to internet
+echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1
 
-printf '\n\n===========START SPEEDTEST=============\n\n' > $TMP
-printf "$YOUR_SSID  -  $NOW" 1> $TMP
-printf "\n"
-$ST_CLI --share 1> $TMP
-URL=$(grep -io 'www.speedtest.net/result/.*[.png]' $TMP)
-wget -O $RESULTS/$NOW.png "$URL"
+if [ $? -eq 0 ]; then
+    
+printf '\n\n===========START SPEEDTEST=============\n\n' >> $TMP
+printf "$YOUR_SSID - $NOW" 1>> $TMP
+printf "\n\n" 1>> $TMP
+$ST_CLI --share 1>> $TMP
 
+URL=$(grep -io 'www.speedtest.net/result/.*[.png]' $TMP) 1>> $TMP
+wget -O $RESULTS/$NOW.png "$URL" 1>> $TMP
 
-printf '\n\n============END OF SPEEDTEST============\n\n' > $TMP
+printf '\n\n============END OF SPEEDTEST============\n\n' 1>> $TMP
 
 #Preparing notification
-DLD=$(grep Download $TMP)
-ULD=$(grep Upload $TMP)
-terminal-notifier -message "$DLD & $ULD" -title "bbspeedlogger" -subtitle "$YOUR_SSID" -open file://localhost/$RESULTS
+DLD=$(grep Download: $TMP)
+ULD=$(grep Upload: $TMP)
 
-#Appending speedtest log to logile
-cat $TMP >> .log
+terminal-notifier -message "$DLD & $ULD" -title "bbspeedlogger" -subtitle "$YOUR_SSID" -open file://localhost/$RESULTS
+sh ping_test.sh
+else
+    echo "You are Offline" 1>> $TMP
+    terminal-notifier -message "You are Offline" -title "bbspeedlogger"
+fi
+
+rm $TMP
