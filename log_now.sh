@@ -21,7 +21,6 @@ fi
 
 #check connectivity to internet
 echo -e "GET http://google.com HTTP/1.0\n\n" | nc google.com 80 > /dev/null 2>&1
-
 if [ $? -eq 0 ]; then
     
 printf '\n\n===========START SPEEDTEST=============\n\n' >> $TMP
@@ -34,6 +33,7 @@ wget -O $RESULTS/$NOW.png "$URL" 1>> $TMP
 
 printf '\n\n============END OF SPEEDTEST============\n\n' 1>> $TMP
 
+cat $TMP > $RESULTS/$NOW.txt
 #Preparing notification
 DLD=$(grep Download: $TMP)
 ULD=$(grep Upload: $TMP)
