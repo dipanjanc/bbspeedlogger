@@ -5,7 +5,15 @@ BBLOGGER_PATH="/Users/$USER/bbspeedlogger"
 RESULTS="$BBLOGGER_PATH/results"
 NOW=$(date +"%Y-%m-%d_%H-%M")
 TMP="$BBLOGGER_PATH/.temp"
-YOUR_SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}')
+#!/bin/bash
+ST_CLI='/usr/local/bin/speedtest-cli'
+USER=$(whoami)
+YOUR_SSID=$(/System/Library/PrivateFrameworks/Apple80211.framework/Versions/Current/Resources/airport -I | awk '/ SSID/ {print substr($0, index($0, $2))}'| sed '/^$/d;s/[[:blank:]]//g')
+BBLOGGER_PATH="/Users/$USER/bbspeedlogger"
+RESULTS="$BBLOGGER_PATH/results/$YOUR_SSID"
+NOW=$(date +"%Y-%m-%d_%H-%M")
+TMP="$BBLOGGER_PATH/.temp"
+
 #iwgetid
 
 # check if bblogger folder exists or not
@@ -33,16 +41,23 @@ wget -O $RESULTS/$NOW.png "$URL" 1>> $TMP
 
 printf '\n\n============END OF SPEEDTEST============\n\n' 1>> $TMP
 
-cat $TMP > $RESULTS/$NOW.txt
+#cat $TMP > $RESULTS/$NOW.txt
 #Preparing notification
 DLD=$(grep Download: $TMP)
 ULD=$(grep Upload: $TMP)
 
 terminal-notifier -message "$DLD & $ULD" -title "bbspeedlogger" -subtitle "$YOUR_SSID" -open file://localhost/$RESULTS
-sh ping_test.sh
+
+printf "\n\n============Checking ping============\n" 1>> $TMP
+ping -c 10 google.com >>$TMP
+printf '\n\n========================\n\n' 1>> $TMP
+cat $TMP >> $RESULTS/$NOW.txt
+
 else
     echo "You are Offline" 1>> $TMP
     terminal-notifier -message "You are Offline" -title "bbspeedlogger"
 fi
 
 rm $TMP
+
+
