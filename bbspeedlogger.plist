@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+  <key>Label</key>
+  <string>com.dipanjanc.bbspeedlogger</string>
+
+  <key>ProgramArguments</key>
+  <array>
+    <string>/Users/dipanjanchakraborty/Documents/ping_test.sh</string>
+  </array>
+
+  <key>Nice</key>
+  <integer>1</integer>
+
+  <key>StartInterval</key>
+  <integer>01</integer>
+
+  <key>StandardErrorPath</key>
+  <string>/Users/dipanjanchakraborty/Documents/cron.log</string>
+
+  <key>StandardOutPath</key>
+  <string>/Users/dipanjanchakraborty/Documents/cron.log</string>
+</dict>
+</plist>
