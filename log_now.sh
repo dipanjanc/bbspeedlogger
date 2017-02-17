@@ -1,7 +1,7 @@
 #!/bin/bash
 ST_CLI='/usr/local/bin/speedtest-cli'
 USER=$(whoami)
-BBLOGGER_PATH="/Users/$USER/bbspeedlogger"
+BBLOGGER_PATH="/Users/$USER/Dropbox/wizardry/bbspeedlogger"
 RESULTS="$BBLOGGER_PATH/results"
 NOW=$(date +"%Y-%m-%d_%H-%M")
 TMP="$BBLOGGER_PATH/.temp"

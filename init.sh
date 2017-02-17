@@ -1,6 +1,6 @@
 #!/bin/bash
 USER=$(whoami)
-BBLOGGER_PATH="/Users/$USER/bbspeedlogger"
+BBLOGGER_PATH="/Users/$USER/Dropbox/wizardry/bbspeedlogger"
 
 #Install dependencies
 pip install speedtest-cli 
